@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "serena": {
+      "command": "python",
+      "args": ["-m", "serena.mcp", "--project-dir", "."],
+      "env": {}
+    },
+    "sqlite-rag": {
+      "command": "node",
+      "args": ["{{SQLITE_RAG_PATH}}/index.js", "--db-path", "memory/business-rules.sqlite"],
+      "env": {}
+    },
+    "engram": {
+      "command": "node",
+      "args": ["{{ENGRAM_PATH}}/index.js"],
+      "env": {}
+    }
+  }
+}

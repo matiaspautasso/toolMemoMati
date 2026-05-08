@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Technical Decision",
+  "description": "Format for technical decisions stored in memory/decisions/DEC-{AREA}-{NNN}.md",
+  "type": "object",
+  "required": [
+    "id",
+    "tipo",
+    "area",
+    "titulo",
+    "decision",
+    "motivo",
+    "impacto",
+    "riesgo",
+    "estado",
+    "fecha",
+    "autorizado_por"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^DEC-[A-Z]+-[0-9]{3}$",
+      "description": "Unique identifier, e.g. DEC-DB-001"
+    },
+    "tipo": {
+      "type": "string",
+      "const": "decision-tecnica"
+    },
+    "area": {
+      "type": "string",
+      "description": "Technical area (e.g. database, auth, frontend, infrastructure)"
+    },
+    "titulo": {
+      "type": "string",
+      "description": "Short title for the decision"
+    },
+    "decision": {
+      "type": "string",
+      "description": "Full description of the decision taken"
+    },
+    "motivo": {
+      "type": "string",
+      "description": "Why this decision was taken"
+    },
+    "alternativas_descartadas": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Alternatives considered and why they were rejected"
+    },
+    "impacto": {
+      "type": "string",
+      "description": "Files, modules, or areas affected"
+    },
+    "riesgo": {
+      "type": "string",
+      "enum": ["bajo", "medio", "alto"],
+      "description": "Risk level of this decision"
+    },
+    "estado": {
+      "type": "string",
+      "enum": ["vigente", "dudosa", "obsoleta", "reemplazada"],
+      "description": "Current state of the decision"
+    },
+    "reemplazada_por": {
+      "type": ["string", "null"],
+      "description": "ID of the decision that supersedes this one"
+    },
+    "fecha": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date when the decision was made"
+    },
+    "autorizado_por": {
+      "type": "string",
+      "description": "Who authorized this decision"
+    }
+  },
+  "additionalProperties": false
+}

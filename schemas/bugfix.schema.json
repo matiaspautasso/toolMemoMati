@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Bug Fix",
+  "description": "Format for bug fixes stored in memory/bugfixes/BUG-{MODULE}-{NNN}.md",
+  "type": "object",
+  "required": [
+    "id",
+    "tipo",
+    "modulo",
+    "titulo",
+    "problema",
+    "causa_raiz",
+    "fix",
+    "archivos",
+    "estado",
+    "fecha"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^BUG-[A-Z]+-[0-9]{3}$",
+      "description": "Unique identifier, e.g. BUG-AUTH-001"
+    },
+    "tipo": {
+      "type": "string",
+      "const": "bugfix"
+    },
+    "modulo": {
+      "type": "string",
+      "description": "Module where the bug occurred"
+    },
+    "titulo": {
+      "type": "string",
+      "description": "Short title describing the bug"
+    },
+    "problema": {
+      "type": "string",
+      "description": "Observable symptom — what the user saw"
+    },
+    "causa_raiz": {
+      "type": "string",
+      "description": "Root cause of the bug"
+    },
+    "fix": {
+      "type": "string",
+      "description": "How it was fixed, including relevant file:function references"
+    },
+    "archivos": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Files modified to fix the bug"
+    },
+    "estado": {
+      "type": "string",
+      "enum": ["resuelto", "regresion", "parcial"],
+      "description": "resuelto=closed, regresion=reappeared, parcial=workaround only"
+    },
+    "fecha": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date when the bug was fixed"
+    },
+    "commit": {
+      "type": "string",
+      "description": "Optional git commit hash where the fix was applied"
+    }
+  },
+  "additionalProperties": false
+}

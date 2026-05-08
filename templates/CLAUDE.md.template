@@ -1,0 +1,49 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+<!-- MEMORY-FRAMEWORK:START -->
+## Protocolo de Memorias — toolMemoMati
+
+### Jerarquía de autoridad (resolución de conflictos)
+
+Cuando dos memorias se contradicen, gana la fuente más alta:
+
+```
+1. Código actual  →  2. Tests que pasan  →  3. Docs vigente  →  4. SQLite-RAG (confidence ≥ 0.8)  →  5. Engram  →  6. Chat
+```
+
+### Sistemas activos
+
+| Sistema | MCP | Almacena en |
+|---------|-----|-------------|
+| Serena | `serena` | `.serena/memories/` |
+| SQLite-RAG | `sqlite-rag` | `memory/business-rules.sqlite` |
+| Engram | `engram` | `memory/session-log/`, `memory/decisions/` |
+
+### Árbol de decisión: ¿dónde guardo esto?
+
+- Estructura del código o convención de edición → **Serena**
+- Regla de negocio o invariante del sistema → **SQLite-RAG** (confidence ≥ 0.8) + si es crítica: **CLAUDE.md**
+- Decisión técnica con contexto temporal → **Engram** (type: decision)
+- Bug fix con root cause → **Engram** (type: bugfix)
+- Resumen de sesión → **Engram** (mem_session_summary)
+- Comando o convención de desarrollo → **Serena** + **CLAUDE.md**
+
+### Niveles de autorización
+
+| Riesgo | Ejemplos | Acción requerida |
+|--------|----------|-----------------|
+| Bajo | resumen sesión, comando útil, bug menor | automático |
+| Medio | decisión técnica, nueva convención | mostrar propuesta → esperar confirmación |
+| Alto | regla de negocio, eliminar memoria, cambiar jerarquía | confirmar SIEMPRE — describir impacto |
+
+### Comandos
+
+- `/memory-bootstrap` — inicializar framework en proyecto nuevo
+- `/memory-audit` — auditar memorias (genera reporte, nunca borra sin aprobación)
+
+### Soft-delete
+
+Nunca borrar directamente. Flujo: `marcar obsoleta → agregar reemplazo → registrar fecha + motivo → proponer al usuario → borrar solo con autorización explícita`
+<!-- MEMORY-FRAMEWORK:END -->
