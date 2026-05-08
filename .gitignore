@@ -1,0 +1,16 @@
+# Memory framework runtime files (not part of the driver)
+memory/business-rules.sqlite
+memory/.audit-counter
+memory/cache/
+*.sqlite
+
+# Serena internal index
+.serena/index/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
