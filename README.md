@@ -1,87 +1,104 @@
-# toolMemoMati
+# Persistent Memory Framework for AI Coding Agents
 
-> Persistent memory framework installer for AI-assisted development.
-
----
-
-## English
-
-**toolMemoMati** is a memory framework installer for AI-assisted development. It sets up a persistent, structured memory system inside any project so that your AI agent (Claude Code, Cursor, Copilot, etc.) never loses context between sessions.
-
-It installs and wires together three memory layers:
-
-| Layer | Purpose |
-|-------|---------|
-| **Serena MCP** | Code intelligence — reads symbols, references, structure |
-| **SQLite-RAG MCP** | Business rules and verified facts with confidence scores |
-| **Engram MCP** | Session history, architectural decisions, bug fixes |
-
-Each layer has a clear responsibility. The framework defines which information goes where, how conflicts are resolved (current code always wins), and what requires explicit authorization before saving (business rules always ask first).
-
-It also installs a **memory auditor** — a standalone PowerShell script that scans your memory files, detects stale or contradicted entries, and proposes cleanup without touching anything until you approve.
-
-### How to install it by asking your AI agent
-
-Open the target project in Claude Code (or your preferred AI IDE) and say:
-
-> "Use the toolMemoMati framework to set up persistent memory in this project. Clone https://github.com/matiaspautasso/toolMemoMati and run `install/memory-framework-install.ps1 -ProjectPath .` from within it."
-
-Once installed, ask your agent:
-
-> "Run /memory-bootstrap to initialize the memory systems for this project."
+> Portable memory installer for Claude Code, Cursor, and AI-assisted development workflows using Serena MCP, SQLite-RAG, Engram, and memory auditing scripts.
 
 ---
 
-## Español
+## Engineering Highlights
 
-**toolMemoMati** es un instalador de framework de memoria para desarrollo asistido por IA. Configura un sistema de memoria persistente y estructurado dentro de cualquier proyecto, para que tu agente de IA (Claude Code, Cursor, Copilot, etc.) nunca pierda contexto entre sesiones.
-
-Instala y conecta tres capas de memoria:
-
-| Capa | Función |
-|------|---------|
-| **Serena MCP** | Inteligencia de código — lee símbolos, referencias y estructura |
-| **SQLite-RAG MCP** | Reglas de negocio e invariantes verificables con nivel de confianza |
-| **Engram MCP** | Historial de sesiones, decisiones técnicas y bug fixes |
-
-Cada capa tiene una responsabilidad clara. El framework define qué información va a dónde, cómo se resuelven los conflictos (el código actual siempre gana) y qué requiere autorización explícita antes de guardar (las reglas de negocio siempre preguntan primero).
-
-También instala un **auditor de memorias** — un script PowerShell standalone que escanea tus archivos de memoria, detecta entradas obsoletas o contradictorias, y propone limpieza sin tocar nada hasta que apruebes.
-
-### Cómo instalarlo pidiéndoselo a tu agente de IA
-
-Abrí el proyecto destino en Claude Code (o tu IDE de IA preferido) y decile:
-
-> "Usá el framework toolMemoMati para configurar memoria persistente en este proyecto. Clona https://github.com/matiaspautasso/toolMemoMati y ejecutá `install/memory-framework-install.ps1 -ProjectPath .` desde ahí."
-
-Una vez instalado, pedile a tu agente:
-
-> "Ejecutá /memory-bootstrap para inicializar los sistemas de memoria de este proyecto."
+- Built a portable persistent memory framework for AI-assisted software development.
+- Integrated multiple memory layers: code intelligence, structured business rules, and session history.
+- Designed a clear conflict-resolution model where current code is always treated as the source of truth.
+- Created a PowerShell installer to bootstrap the memory framework into any target project.
+- Added a standalone memory auditor to detect stale, duplicated, or contradicted memory entries.
+- Defined explicit authorization rules: what the AI can save automatically and what requires user approval.
+- Created reusable workflows for Claude Code, Cursor, Copilot, and MCP-based development environments.
 
 ---
 
-## Manual Installation
+## Architecture
+
+The framework is organized into four main layers:
+
+| Layer | Tool | Purpose |
+|-------|------|---------|
+| Code Intelligence | Serena MCP | Reads symbols, references, files, and project structure |
+| Structured Knowledge | SQLite-RAG MCP | Stores verified business rules, invariants, and facts with confidence scores |
+| Session Memory | Engram MCP | Preserves session history, architectural decisions, and bug fixes |
+| Memory Audit | PowerShell auditor | Scans memories, detects stale entries, and generates cleanup reports |
+
+Each layer has a distinct responsibility. The framework defines what goes where, how conflicts are resolved, and what requires explicit user authorization before being saved.
+
+---
+
+## What You Get
+
+Once installed in a project, your AI agent will:
+
+- Remember architectural decisions and why they were made — across sessions, without re-explaining.
+- Retain verified business rules and never re-introduce contradicted assumptions.
+- Track bug root causes so the same mistake is not repeated.
+- Know the project structure, modules, and conventions from the first message of each session.
+- Run periodic memory audits to surface outdated or contradictory information.
+- Respect an explicit authorization model — critical information is never saved without your approval.
+
+---
+
+## Use Cases
+
+- Add persistent memory to a Claude Code or Cursor project.
+- Prevent AI agents from losing project context between sessions.
+- Store verified business rules and technical decisions in a structured, auditable format.
+- Detect and clean up outdated or contradictory memories.
+- Keep project knowledge synchronized with the current codebase.
+- Standardize memory behavior across multiple repositories.
+
+---
+
+## Demo
 
 ```powershell
-# Clone the framework
 git clone https://github.com/matiaspautasso/toolMemoMati
-
-# Install into your project
 cd toolMemoMati
-.\install\memory-framework-install.ps1 -ProjectPath "C:\path\to\your\project"
 
-# Dry run first (see what would happen without making changes)
 .\install\memory-framework-install.ps1 -ProjectPath "C:\path\to\your\project" -DryRun
 ```
 
-## What gets installed in the target project
+Expected output:
+
+```
+Analyzing target project...
+Checking MCP availability (Serena, SQLite-RAG, Engram)...
+Checking memory framework files...
+Preparing .mcp.json configuration...
+Preparing CLAUDE.md memory protocol (markers preserved)...
+Preparing memory/ folder structure...
+Dry run completed. No files were written.
+```
+
+Remove `-DryRun` to apply.
+
+---
+
+## Safety Model
+
+- **Current code always wins** over saved memory — no stale rule can override what exists in the codebase.
+- **Business rules require explicit approval** before being stored — the AI always asks first.
+- **Memory audit reports never delete files automatically** — they propose changes and wait for authorization.
+- **Installer supports dry-run mode** — see exactly what would change before writing anything.
+- **Conflicting memories are flagged**, not silently overwritten — the audit report shows the contradiction and recommends a resolution.
+
+---
+
+## What Gets Installed
 
 ```
 your-project/
 ├── .mcp.json                    ← 3 MCPs configured (Serena + SQLite-RAG + Engram)
-├── CLAUDE.md                    ← memory protocol injected (markers preserved)
-├── .claude/skills/
-│   └── memory-bootstrap.md     ← /memory-bootstrap skill
+├── CLAUDE.md                    ← memory protocol injected (existing content preserved)
+├── .claude/
+│   └── skills/
+│       └── memory-bootstrap.md  ← /memory-bootstrap skill
 └── memory/
     ├── business-rules/          ← RULE-*.md + rules.export.jsonl
     ├── decisions/               ← DEC-*.md
@@ -90,13 +107,52 @@ your-project/
     └── audits/                  ← memory-audit-YYYY-MM-DD.md reports
 ```
 
-## Memory commands
+CLAUDE.md injection uses HTML comment markers — the installer never overwrites existing content, only manages its own block:
+
+```
+<!-- MEMORY-FRAMEWORK:START -->
+...memory protocol...
+<!-- MEMORY-FRAMEWORK:END -->
+```
+
+---
+
+## Memory Commands
 
 | Command | What it does |
 |---------|-------------|
 | `/memory-bootstrap` | Initialize memory systems in a new project |
-| `/memory-audit` | Scan memories, detect stale entries, generate report (never deletes without approval) |
-| `.\memory-auditor\scripts\memory-audit.ps1` | Same as above, standalone (no AI needed) |
+| `/memory-audit` | Scan memories, detect stale entries, generate a report (never deletes without approval) |
+| `.\memory-auditor\scripts\memory-audit.ps1` | Standalone audit script — works without AI |
+
+---
+
+## How to Install
+
+### Option A — Ask your AI agent
+
+Open the target project in Claude Code and say:
+
+> "Use the toolMemoMati framework to set up persistent memory in this project. Clone https://github.com/matiaspautasso/toolMemoMati and run `install/memory-framework-install.ps1 -ProjectPath .` from within it."
+
+Once installed, ask your agent:
+
+> "Run /memory-bootstrap to initialize the memory systems for this project."
+
+### Option B — Run the installer manually
+
+```powershell
+git clone https://github.com/matiaspautasso/toolMemoMati
+cd toolMemoMati
+
+# Dry run first (no changes)
+.\install\memory-framework-install.ps1 -ProjectPath "C:\path\to\your\project" -DryRun
+
+# Apply
+.\install\memory-framework-install.ps1 -ProjectPath "C:\path\to\your\project"
+```
+
+---
 
 ## Dependencies
 
@@ -106,7 +162,29 @@ your-project/
 | SQLite-RAG MCP | Business rules store | Configure in `.mcp.json` |
 | Engram MCP | Session memory | Configure in `.mcp.json` |
 | Claude Code CLI | Runtime | `npm install -g @anthropic-ai/claude-code` |
-| PowerShell 5.1+ | Installer (Windows) | Pre-installed on Windows 10/11 |
+| PowerShell 5.1+ | Installer | Pre-installed on Windows 10/11 |
+
+---
+
+## Why This Matters
+
+This project demonstrates practical experience in:
+
+- **AI workflow engineering** — building infrastructure that makes AI agents more reliable and context-aware.
+- **MCP-based tooling** — integrating multiple Model Context Protocol servers into a unified system.
+- **Developer automation** — PowerShell installers and scripts that bootstrap complex setups in seconds.
+- **Persistent context design** — solving the stateless-session problem in AI-assisted development.
+- **Knowledge management** — structured, versioned, and auditable memory for software projects.
+- **Multi-environment support** — compatible with Claude Code, Cursor, Copilot, and generic MCP setups.
+
+---
+
+## Preview
+
+![Architecture](assets/architecture.png)
+![Memory audit output](assets/memory-audit-output.png)
+
+---
 
 ## License
 
